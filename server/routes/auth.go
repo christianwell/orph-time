@@ -41,6 +41,8 @@ func InitAuth(router *gin.RouterGroup) {
 	authRouter.POST("/otp/check-email", checkEmail)
 	authRouter.POST("/otp/send", sendOtp)
 	authRouter.POST("/otp/verify", verifyOtp)
+
+	authRouter.POST("/hackclub", signInHackclub)
 }
 
 // @Summary Signs user in

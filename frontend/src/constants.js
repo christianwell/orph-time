@@ -26,6 +26,7 @@ export const authTypes = Object.freeze({
   ADD_CALENDAR_ACCOUNT: "add-calendar-account",
   ADD_CALENDAR_ACCOUNT_FROM_EDIT: "add-calendar-account-from-edit",
   UPGRADE: "upgrade",
+  HACKCLUB: "hackclub",
 })
 
 export const eventTypes = Object.freeze({

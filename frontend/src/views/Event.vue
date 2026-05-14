@@ -612,11 +612,8 @@ export default {
     ...mapState(["authUser", "events"]),
     ...mapGetters(["isPremiumUser"]),
     showAds() {
-      return (
-        !this.ownerIsPremium &&
-        !this.isPremiumUser &&
-        !this.isSettingSpecificTimes
-      )
+      // Ads disabled per project policy (see AGENTS.md: "No paywalls or ads.")
+      return false
     },
     allowScheduleEvent() {
       return this.scheduleOverlapComponent?.allowScheduleEvent

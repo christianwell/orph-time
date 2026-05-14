@@ -55,6 +55,25 @@ func GetUserByStripeCustomerId(stripeCustomerId string) *models.User {
 	return &user
 }
 
+func GetUserBySlackId(slackId string) *models.User {
+	if slackId == "" {
+		return nil
+	}
+	result := UsersCollection.FindOne(context.Background(), bson.M{
+		"slackId": slackId,
+	})
+	if result.Err() == mongo.ErrNoDocuments {
+		return nil
+	}
+
+	var user models.User
+	if err := result.Decode(&user); err != nil {
+		logger.StdErr.Panicln(err)
+	}
+
+	return &user
+}
+
 func GetUserByEmail(email string) *models.User {
 	emailQuery := strings.TrimSpace(email)
 	if emailQuery == "" {

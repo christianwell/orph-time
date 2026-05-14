@@ -15,6 +15,9 @@ type User struct {
 	LastName  string             `json:"lastName" bson:"lastName,omitempty"`
 	Picture   string             `json:"picture" bson:"picture,omitempty"`
 
+	// Hack Club Slack user ID (set when the user signed in via Hack Club Auth)
+	SlackId string `json:"slackId" bson:"slackId,omitempty"`
+
 	// Whether the user has set a custom name for themselves, i.e. don't change their name when they sign in
 	HasCustomName *bool `json:"hasCustomName" bson:"hasCustomName,omitempty"`
 

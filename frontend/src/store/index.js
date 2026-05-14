@@ -29,7 +29,7 @@ export default new Vuex.Store({
     signUpFormEnabled: false,
     daysOnlyEnabled: true,
     overlayAvailabilitiesEnabled: true,
-    enablePaywall: true,
+    enablePaywall: false,
 
     // Experiments
     pricingPageConversion: "control",

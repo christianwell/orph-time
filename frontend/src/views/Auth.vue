@@ -38,6 +38,20 @@ export default {
         } else {
           throw new Error("Invalid calendar type")
         }
+      } else if (state?.type === authTypes.HACKCLUB) {
+        const user = await post("/auth/hackclub", {
+          code,
+          timezoneOffset: new Date().getTimezoneOffset(),
+        })
+        deleteEventsCreated()
+
+        this.setAuthUser(user)
+
+        this.$posthog?.identify(user._id, {
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+        })
       } else {
         const user = await post("/auth/sign-in", {
           code,

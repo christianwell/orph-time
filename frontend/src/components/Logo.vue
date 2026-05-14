@@ -1,5 +1,15 @@
 <template>
+  <div
+    v-if="type === 'timeful'"
+    class="tw-flex tw-items-center tw-select-none tw-cursor-pointer"
+  >
+    <span class="tw-text-xl sm:tw-text-2xl tw-font-bold tw-text-green">
+      Orph-time
+    </span>
+    
+  </div>
   <v-img
+    v-else
     :alt="alt"
     class="shrink tw-cursor-pointer"
     contain
@@ -35,8 +45,6 @@ export default {
     },
     src() {
       switch (this.type) {
-        case "timeful":
-          return require("@/assets/timeful_logo_with_text.png")
         case "betterwhen2meet":
           return require("@/assets/april_fools_logo.png")
         case "aprilfools":
@@ -45,8 +53,6 @@ export default {
     },
     width() {
       switch (this.type) {
-        case "timeful":
-          return this.isPhone ? 90 : 110
         case "betterwhen2meet":
           return this.isPhone ? 200 : 300
         case "aprilfools":
