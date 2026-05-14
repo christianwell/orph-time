@@ -84,7 +84,11 @@ func signInHackclub(c *gin.Context) {
 		return
 	}
 
-	redirectURI := utils.GetOrigin(c) + "/auth"
+	// Use explicit redirect URI if configured, otherwise fall back to derived one
+	redirectURI := os.Getenv("HACKCLUB_REDIRECT_URI")
+	if redirectURI == "" {
+		redirectURI = utils.GetOrigin(c) + "/auth"
+	}
 
 	// 1. Exchange the authorization code for an access token.
 	tokenReq, _ := json.Marshal(map[string]string{

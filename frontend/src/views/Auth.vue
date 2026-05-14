@@ -75,6 +75,11 @@ export default {
       if (state) {
         let authUser
         switch (state.type) {
+          case authTypes.HACKCLUB:
+            this.$router.replace({
+              name: "home",
+            })
+            break
           case authTypes.EVENT_ADD_AVAILABILITY:
             this.$router.replace({
               name: "event",
