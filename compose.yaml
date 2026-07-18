@@ -21,6 +21,7 @@ services:
         VUE_APP_POSTHOG_API_KEY: ${VUE_APP_POSTHOG_API_KEY:-}
         VUE_APP_GOOGLE_CLIENT_ID: ${CLIENT_ID:-}
         VUE_APP_MICROSOFT_CLIENT_ID: ${MICROSOFT_CLIENT_ID:-}
+        VUE_APP_HACKCLUB_CLIENT_ID: ${HACKCLUB_CLIENT_ID:-}
     volumes:
       - frontend_dist:/app/dist
     command:
@@ -29,6 +30,12 @@ services:
         "-c",
         "rm -rf /app/dist/* && cp -r /build/* /app/dist/ && echo 'Frontend assets copied' && tail -f /dev/null",
       ]
+    healthcheck:
+      test: ["CMD", "test", "-f", "/app/dist/index.html"]
+      interval: 2s
+      timeout: 2s
+      retries: 15
+      start_period: 2s
 
   server:
     build:
@@ -46,8 +53,14 @@ services:
       MICROSOFT_CLIENT_ID: ${MICROSOFT_CLIENT_ID:-}
       MICROSOFT_CLIENT_SECRET: ${MICROSOFT_CLIENT_SECRET:-}
 
+      HACKCLUB_CLIENT_ID: ${HACKCLUB_CLIENT_ID:-}
+      HACKCLUB_CLIENT_SECRET: ${HACKCLUB_CLIENT_SECRET:-}
+      HACKCLUB_REDIRECT_URI: ${HACKCLUB_REDIRECT_URI:-}
+
       SESSION_SECRET: ${SESSION_SECRET}
       ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      CORS_ORIGINS: ${CORS_ORIGINS:-}
+      LISTMONK_ENABLED: ${LISTMONK_ENABLED:-false}
 
       VUE_APP_POSTHOG_API_KEY: ${VUE_APP_POSTHOG_API_KEY:-}
     volumes:
@@ -57,7 +70,7 @@ services:
       mongo:
         condition: service_healthy
       frontend:
-        condition: service_started
+        condition: service_healthy
     healthcheck:
       test:
         ["CMD", "wget", "-q", "--spider", "http://localhost:3002/api/health"]
@@ -70,4 +83,3 @@ volumes:
   mongo_data:
   frontend_dist:
   server_logs:
-

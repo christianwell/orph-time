@@ -2,6 +2,43 @@
 
 Production deployment using Docker Compose behind a Caddy reverse proxy.
 
+## Dokploy
+
+Deploy this repository as a **Compose** service in Dokploy:
+
+1. Create a project and environment in Dokploy.
+2. Add a Compose service from this Git repository and select `compose.yaml`.
+3. Add the environment variables below in Dokploy **before the first build**.
+   OAuth client IDs are compiled into the frontend, so changing one requires a
+   rebuild rather than only a restart.
+4. Add a domain to the `server` service using container port `3002`, enable
+   HTTPS, and use `/` as the path.
+5. Deploy. Do not add domains to the `frontend` or `mongo` services.
+
+Minimum environment for a deployment using Hack Club sign-in:
+
+```dotenv
+# Generate these separately and keep them stable across redeployments.
+SESSION_SECRET=<output of: openssl rand -hex 32>
+ENCRYPTION_KEY=<output of: openssl rand -hex 16>
+
+HACKCLUB_CLIENT_ID=<your Hack Club OAuth client ID>
+HACKCLUB_CLIENT_SECRET=<your Hack Club OAuth client secret>
+HACKCLUB_REDIRECT_URI=https://your-domain.example/auth
+
+CORS_ORIGINS=https://your-domain.example
+LISTMONK_ENABLED=false
+```
+
+If Google or Microsoft sign-in is enabled, also set `CLIENT_ID` and
+`CLIENT_SECRET`, and/or `MICROSOFT_CLIENT_ID` and
+`MICROSOFT_CLIENT_SECRET`. Configure `https://your-domain.example/auth` as the
+authorized redirect URI with each OAuth provider. In Hack Club Auth, request the
+`email name slack_id` scopes.
+
+MongoDB data is stored in the Compose `mongo_data` volume. Do not delete the
+Compose service with volumes unless you intend to erase the database.
+
 ## Prerequisites
 
 - Docker and Docker Compose
@@ -19,8 +56,8 @@ cd timeful.app
 cp server/.env.template server/.env
 # Edit server/.env with your values (see Configuration below)
 
-# 3. Build and start services
-docker compose up -d --build
+# 3. Build and start services (Compose must be told to use this env file)
+docker compose --env-file server/.env up -d --build
 
 # 4. Configure Caddy
 sudo cp Caddyfile.example /etc/caddy/Caddyfile
@@ -103,7 +140,7 @@ Create `server/.env` from the template (`server/.env.template`).
 | ---------------- | --------------------------------------------------------------------------- |
 | `CLIENT_ID`      | Google OAuth client ID                                                      |
 | `CLIENT_SECRET`  | Google OAuth client secret                                                  |
-| `ENCRYPTION_KEY` | Key for encrypting sensitive data (generate with `openssl rand -base64 32`) |
+| `ENCRYPTION_KEY` | AES key; exactly 32 characters (generate with `openssl rand -hex 16`)       |
 | `SESSION_SECRET` | Session cookie encryption key (generate with `openssl rand -base64 32`)     |
 
 #### Optional — Payments
@@ -150,6 +187,6 @@ See `server/.env.template` for the complete list.
    - Admin SDK API (Directory)
 4. Create OAuth 2.0 credentials (Web application type)
 5. Add authorized redirect URIs:
-   - `https://yourdomain.com/api/auth/callback`
-   - `http://localhost:3002/api/auth/callback` (for development)
+   - `https://yourdomain.com/auth`
+   - `http://localhost:8080/auth` (for development)
 6. Copy the Client ID and Client Secret to your `.env`
