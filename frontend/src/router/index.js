@@ -95,30 +95,33 @@ const router = new VueRouter({
   routes,
 })
 
+// Routes that do NOT require authentication. Everything else does.
+const publicRoutes = [
+  "sign-in",
+  "sign-up",
+  "auth",
+  "privacy-policy",
+  "cookie-settings",
+  "404",
+]
+
 router.beforeEach(async (to, from, next) => {
-  const authRoutes = ["home", "settings"]
-  const noAuthRoutes = ["sign-in", "sign-up"]
   try {
     await get("/auth/status")
 
-    if (noAuthRoutes.includes(to.name)) {
+    // Signed-in users shouldn't see sign-in / sign-up / landing — send to home.
+    if (["sign-in", "sign-up", "landing"].includes(to.name)) {
       next({ name: "home" })
     } else {
       next()
     }
   } catch (err) {
-    if (authRoutes.includes(to.name)) {
-      next({ name: "landing" })
-    } else {
+    // Not signed in — only public routes are accessible.
+    if (publicRoutes.includes(to.name)) {
       next()
+    } else {
+      next({ name: "sign-in" })
     }
-  }
-
-  if (to.name !== "event" && to.name !== "group") {
-    const fusetag = window.fusetag || (window.fusetag = { que: [] })
-    fusetag.que.push(function () {
-      fusetag.destroySticky()
-    })
   }
 })
 

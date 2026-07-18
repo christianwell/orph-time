@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" max-width="500px" content-class="tw-m-0">
     <v-card>
       <v-card-title>
-        <span class="tw-text-xl tw-font-medium">Import Timeful Event</span>
+        <span class="tw-text-xl tw-font-medium">Import Orph-time Event</span>
         <v-spacer />
         <v-btn
           absolute
@@ -15,7 +15,7 @@
       </v-card-title>
       <v-card-text class="tw-text-very-dark-gray">
         <p class="tw-mb-4">
-          Paste a Timeful event URL from another instance to import it along
+          Paste a Orph-time event URL from another instance to import it along
           with all existing responses.
         </p>
         <v-text-field
@@ -109,7 +109,7 @@ export default {
       } catch (e) {
         const msg = e?.parsed?.error || "Failed to import event"
         const errorMessages = {
-          "invalid-url": "Invalid URL. Please enter a valid Timeful event URL.",
+          "invalid-url": "Invalid URL. Please enter a valid Orph-time event URL.",
           "remote-fetch-failed": "Could not reach the remote server.",
           "remote-event-not-found": "Event not found on the remote server.",
           "private-address": "Not allowed to import from this URL.",

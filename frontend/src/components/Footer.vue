@@ -6,7 +6,7 @@
         <div>
           <div class="tw-mb-3 tw-flex tw-items-center">
             <v-icon class="tw-mr-1 tw-text-white">mdi-calendar-blank</v-icon>
-            <span class="tw-text-2xl tw-font-medium">timeful</span>
+            <span class="tw-text-2xl tw-font-medium">Orph-time</span>
           </div>
           <div class="tw-mb-6 tw-leading-snug">
             Made with 💚 by
@@ -116,21 +116,16 @@
         <div class="tw-flex tw-flex-col tw-gap-2">
           <div class="tw-mb-1 tw-font-bold">Articles</div>
           <div>
-            <a href="/blog/schej-is-now-timeful/" class="tw-text-sm"
-              >Schej is now Timeful</a
-            >
-          </div>
-          <div>
             <a href="/blog/about/" class="tw-text-sm"
-              >Welcome to the Timeful blog!</a
+              >Welcome to the Orph-time blog!</a
             >
           </div>
           <div>
-            <a href="/blog/doodle/" class="tw-text-sm">Timeful vs Doodle</a>
+            <a href="/blog/doodle/" class="tw-text-sm">Orph-time vs Doodle</a>
           </div>
           <div>
             <a href="/blog/when2meet/" class="tw-text-sm"
-              >Timeful vs When2meet</a
+              >Orph-time vs When2meet</a
             >
           </div>
           <div>

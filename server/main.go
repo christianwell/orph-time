@@ -134,6 +134,7 @@ func main() {
 	routes.InitAnalytics(apiRouter)
 	routes.InitStripe(apiRouter)
 	routes.InitFolders(apiRouter)
+	routes.InitSlack(apiRouter)
 	slackbot.InitSlackbot(apiRouter)
 
 	frontendDist := os.Getenv("FRONTEND_DIST")

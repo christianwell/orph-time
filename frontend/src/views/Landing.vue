@@ -20,7 +20,6 @@
           </LandingPageHeader>
         </div>
 
-        <FormerlyKnownAs />
       </div>
 
       <div class="tw-flex tw-flex-col tw-items-center">
@@ -66,7 +65,7 @@
                 >
               </template>
               <span
-                >Timeful allows you to autofill your availability from Google
+                >Orph-time allows you to autofill your availability from Google
                 Calendar,<br class="tw-hidden sm:tw-block" />
                 Outlook, Apple Calendar, or an ICS feed URL.</span
               > </v-tooltip
@@ -178,7 +177,7 @@
         <iframe
           class="tw-h-full tw-w-full"
           src="https://www.youtube.com/embed/vFkBC8BrkOk?si=pF64JAIyDhom_1do"
-          title="Timeful demo"
+          title="Orph-time demo"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin"
@@ -305,16 +304,14 @@ import { calendarTypes } from "@/constants"
 import HowItWorksDialog from "@/components/HowItWorksDialog.vue"
 import { vueVimeoPlayer } from "vue-vimeo-player"
 import Footer from "@/components/Footer.vue"
-import PronunciationMenu from "@/components/PronunciationMenu.vue"
 import { mapState, mapMutations } from "vuex"
 import AuthUserMenu from "@/components/AuthUserMenu.vue"
-import FormerlyKnownAs from "@/components/FormerlyKnownAs.vue"
 
 export default {
   name: "Landing",
 
   metaInfo: {
-    title: "Timeful (formerly Schej) - Find a time to meet",
+    title: "Orph-time - Find a time to meet",
   },
 
   components: {
@@ -331,9 +328,7 @@ export default {
     HowItWorksDialog,
     vueVimeoPlayer,
     Footer,
-    PronunciationMenu,
     AuthUserMenu,
-    FormerlyKnownAs,
   },
 
   data: () => ({
@@ -341,15 +336,15 @@ export default {
     newDialog: false,
     githubSnackbar: true,
     howItWorksSteps: [
-      "Create a Timeful event",
-      "Share the Timeful link with your group for them to fill out",
+      "Create a Orph-time event",
+      "Share the Orph-time link with your group for them to fill out",
       "See where everybody's availability overlaps!",
     ],
     faqs: [
       {
-        question: "Does Timeful support timezones?",
+        question: "Does Orph-time support timezones?",
         answer:
-          "Yes! Timeful automatically converts all times to the viewer's local timezone. There's also a timezone selector at the bottom of every meeting poll if you would like to manually change it.",
+          "Yes! Orph-time automatically converts all times to the viewer's local timezone. There's also a timezone selector at the bottom of every meeting poll if you would like to manually change it.",
       },
       {
         question: "How many people can respond to an event?",
@@ -357,12 +352,12 @@ export default {
           "Unlimited! We've tested events with over 500+ responses and it works great.",
       },
       {
-        question: "What calendars does Timeful integrate with?",
+        question: "What calendars does Orph-time integrate with?",
         answer:
-          "Timeful allows you to autofill your availability from your Google Calendar, Outlook, Apple Calendar, or an ICS feed URL. We are working on adding more calendar types soon!",
+          "Orph-time allows you to autofill your availability from your Google Calendar, Outlook, Apple Calendar, or an ICS feed URL. We are working on adding more calendar types soon!",
       },
       {
-        question: "Is calendar access required in order to use Timeful?",
+        question: "Is calendar access required in order to use Orph-time?",
         answer:
           "Nope! You can manually input your availability, but we highly recommend allowing calendar access in order to view your calendar events while doing so.",
       },
@@ -377,7 +372,7 @@ export default {
           'If you are signed in, simply click the "Edit availability" button. If you entered your availability as a guest, hover over your name and click the pencil icon next to it.',
       },
       {
-        question: "How is Timeful different from Lettucemeet or When2meet?",
+        question: "How is Orph-time different from Lettucemeet or When2meet?",
         points: [
           "Much better UI (web and mobile)",
           "Seamless and working calendar integration",
@@ -396,7 +391,7 @@ export default {
       },
       {
         question: `How do I send reminders to people to fill out an event?`,
-        answer: `Open the "Email Reminders" section when creating an event and input everybody's email address. Reminder emails will be sent the day of event creation, one day after, and three days after. <br><br>You will also receive an email once everybody has filled out the Timeful.`,
+        answer: `Open the "Email Reminders" section when creating an event and input everybody's email address. Reminder emails will be sent the day of event creation, one day after, and three days after. <br><br>You will also receive an email once everybody has filled out the Orph-time.`,
         authRequired: true,
       },
     ],
@@ -409,21 +404,21 @@ export default {
           "https://www.redditstatic.com/avatars/defaults/v2/avatar_default_1.png",
       },
       {
-        text: "It's almost <span class='rdt-h'>comically easy</span> to schedule meetings with Timeful.",
+        text: "It's almost <span class='rdt-h'>comically easy</span> to schedule meetings with Orph-time.",
         author: "u/stuffingmybrain",
         link: "https://www.reddit.com/r/schej/comments/1drs26z/comment/lb8rvty",
         picture:
           "https://styles.redditmedia.com/t5_qqojf/styles/profileIcon_snooa54a8eae-bc7f-406f-9778-b3b9dfb818e5-headshot.png?width=64&height=64&frame=1&auto=webp&crop=&s=a0a91575ff7cfc3b6698cac69da6c012c7deb8d6",
       },
       {
-        text: "Timeful is everything I've ever wanted and more. On top of that, <span class='rdt-h'>community support is the best I've seen</span> of any app or software, ever.",
+        text: "Orph-time is everything I've ever wanted and more. On top of that, <span class='rdt-h'>community support is the best I've seen</span> of any app or software, ever.",
         author: "u/DMODD",
         link: "https://www.reddit.com/r/schej/comments/1drs26z/comment/lb8udud",
         picture:
           "https://www.redditstatic.com/avatars/defaults/v2/avatar_default_6.png",
       },
       {
-        text: "With Timeful, <span class='rdt-h'>I'm very quickly able to figure out the optimal time</span> to schedule online extra help sessions before an exam.",
+        text: "With Orph-time, <span class='rdt-h'>I'm very quickly able to figure out the optimal time</span> to schedule online extra help sessions before an exam.",
         author: "u/crackwurst",
         link: "https://www.reddit.com/r/schej/comments/1drs26z/comment/lb9dmbe",
         picture:

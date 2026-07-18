@@ -28,7 +28,7 @@ export default {
   name: "PageNotFound",
 
   metaInfo: {
-    title: "Page not found - Timeful",
+    title: "Page not found - Orph-time",
   },
 
   computed: {

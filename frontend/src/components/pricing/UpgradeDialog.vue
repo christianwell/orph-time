@@ -23,7 +23,7 @@
           Upgrade to
           <span
             class="tw-bg-gradient-to-r tw-from-darkest-green tw-to-light-green tw-bg-clip-text tw-text-transparent"
-            >Timeful Premium</span
+            >Orph-time Premium</span
           >
         </h2>
         <div class="tw-text-sm tw-font-medium tw-text-dark-gray">
@@ -37,7 +37,7 @@
           <template
             v-else-if="upgradeDialogType === upgradeDialogTypes.SCHEDULE_EVENT"
           >
-            Upgrade to schedule events with Timeful. Your payment helps us keep
+            Upgrade to schedule events with Orph-time. Your payment helps us keep
             the site running.
           </template>
           <template
@@ -45,7 +45,7 @@
               upgradeDialogType === upgradeDialogTypes.UPGRADE_MANUALLY
             "
           >
-            Create unlimited events with Timeful Premium. Your payment helps us
+            Create unlimited events with Orph-time Premium. Your payment helps us
             keep the site running.
           </template>
         </div>
@@ -278,7 +278,7 @@
           Upgrade to
           <span
             class="tw-bg-gradient-to-r tw-from-darkest-green tw-to-light-green tw-bg-clip-text tw-text-transparent"
-            >Timeful Premium</span
+            >Orph-time Premium</span
           >
         </h2>
         <div class="tw-text-sm tw-font-medium tw-text-dark-gray">
@@ -292,7 +292,7 @@
           <template
             v-else-if="upgradeDialogType === upgradeDialogTypes.SCHEDULE_EVENT"
           >
-            Upgrade to schedule events with Timeful. Your payment helps us keep
+            Upgrade to schedule events with Orph-time. Your payment helps us keep
             the site running.
           </template>
           <template
@@ -301,7 +301,7 @@
             Upgrade to remove ads. Your payment helps us keep the site running.
           </template>
           <template v-else>
-            Create unlimited events with Timeful Premium. Your payment helps us
+            Create unlimited events with Orph-time Premium. Your payment helps us
             keep the site running.
           </template>
         </div>

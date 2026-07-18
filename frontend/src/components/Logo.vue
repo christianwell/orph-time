@@ -41,7 +41,7 @@ export default {
         return "Betterwhen2meet Logo"
       }
 
-      return "Timeful Logo"
+      return "Orph-time Logo"
     },
     src() {
       switch (this.type) {

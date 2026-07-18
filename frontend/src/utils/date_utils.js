@@ -605,7 +605,7 @@ export const getTimeOptions = () => {
   Returns an object of the users' calendar events for each calendar account for the given event, filtering for events
   only between the time ranges of the event and clamping calendar events that extend beyond the time
   ranges
-  weekOffset specifies the amount of weeks forward or backward to display events for (only used for weekly Timefuls)
+  weekOffset specifies the amount of weeks forward or backward to display events for (only used for weekly Orph-times)
 */
 export const getCalendarEventsMap = async (
   event,

@@ -1,8 +1,5 @@
 <template>
   <span>
-    <FormerlyKnownAs
-      class="tw-mx-auto tw-mb-10 tw-mt-3 tw-max-w-6xl tw-pl-4 sm:tw-pl-12"
-    />
     <!-- Video Ad (desktop only, when ads enabled) -->
     <div v-if="!isPhone && showAds" ref="videoAdContainer"></div>
     <div v-if="event" class="tw-mt-8 tw-h-full">
@@ -73,7 +70,7 @@
           <v-card-text
             ><span class="tw-font-medium"
               >You're about to add your availability without filling out all
-              pages of this Timeful.</span
+              pages of this Orph-time.</span
             >
             Click the left and right arrows at the top to switch between
             pages.</v-card-text
@@ -203,7 +200,7 @@
                     <v-icon class="tw-text-green" v-else>mdi-refresh</v-icon>
                   </v-btn>
                 </div>
-                <div v-else>
+                <div v-else class="tw-flex tw-items-center tw-gap-2">
                   <v-btn
                     :icon="isPhone"
                     :outlined="!isPhone"
@@ -218,7 +215,24 @@
                     >
                     <v-icon class="tw-text-green" v-else>mdi-share</v-icon>
                   </v-btn>
+                  <v-btn
+                    :icon="isPhone"
+                    :outlined="!isPhone"
+                    class="tw-text-green"
+                    @click="slackInviteDialog = true"
+                  >
+                    <span v-if="!isPhone" class="tw-mr-2 tw-text-green"
+                      >Invite via Slack</span
+                    >
+                    <v-icon class="tw-text-green">mdi-slack</v-icon>
+                  </v-btn>
                 </div>
+                <SlackInviteDialog
+                  v-if="!isGroup"
+                  v-model="slackInviteDialog"
+                  :eventId="eventId"
+                  :eventName="event ? event.name : ''"
+                />
                 <div
                   v-if="!isPhone && (!isSignUp || canEdit)"
                   class="tw-flex tw-w-40"
@@ -345,7 +359,7 @@
             href="https://forms.gle/A96i4TTWeKgH3P1W6"
             target="_blank"
           >
-            Give feedback to Timeful team
+            Give feedback to Orph-time team
           </v-btn>
           <!-- <div
             class="tw-w-full tw-border-t tw-border-solid tw-border-gray"
@@ -526,8 +540,8 @@ import SignInNotSupportedDialog from "@/components/SignInNotSupportedDialog.vue"
 import MarkAvailabilityDialog from "@/components/calendar_permission_dialogs/MarkAvailabilityDialog.vue"
 import InvitationDialog from "@/components/groups/InvitationDialog.vue"
 import HelpDialog from "@/components/HelpDialog.vue"
+import SlackInviteDialog from "@/components/SlackInviteDialog.vue"
 import EventDescription from "@/components/event/EventDescription.vue"
-import FormerlyKnownAs from "@/components/FormerlyKnownAs.vue"
 import CarbonAd from "@/components/event/CarbonAd.vue"
 import PubliftAd from "@/components/event/PubliftAd.vue"
 export default {
@@ -551,8 +565,8 @@ export default {
     MarkAvailabilityDialog,
     InvitationDialog,
     HelpDialog,
+    SlackInviteDialog,
     EventDescription,
-    FormerlyKnownAs,
     CarbonAd,
     PubliftAd,
   },
@@ -568,6 +582,7 @@ export default {
     invitationDialog: false,
     pagesNotVisitedDialog: false,
     helpDialog: false,
+    slackInviteDialog: false,
 
     loading: true,
     calendarEventsMap: {},
@@ -1919,7 +1934,7 @@ export default {
         this.$nextTick(() => {
           this.scheduleOverlapComponent = this.$refs.scheduleOverlap
         })
-        document.title = `${this.event.name} - Timeful`
+        document.title = `${this.event.name} - Orph-time`
       }
     },
     ownerPremiumChecked(val) {
