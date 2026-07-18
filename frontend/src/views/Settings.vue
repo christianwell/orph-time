@@ -43,6 +43,29 @@
         </div>
       </div>
 
+      <!-- Appearance Section -->
+      <div class="tw-flex tw-flex-col tw-gap-5">
+        <div
+          class="tw-text-xl tw-font-medium tw-text-dark-green sm:tw-text-2xl"
+        >
+          Appearance
+        </div>
+        <div class="tw-flex tw-max-w-lg tw-items-center tw-justify-between">
+          <div>
+            <div class="tw-font-medium">Military time</div>
+            <div class="tw-text-sm tw-text-dark-gray">
+              Display times using the 24-hour clock.
+            </div>
+          </div>
+          <v-switch
+            v-model="militaryTime"
+            class="tw-mt-0"
+            hide-details
+            @change="setMilitaryTime"
+          />
+        </div>
+      </div>
+
       <!-- Billing Section -->
       <div
         v-if="authUser.stripeCustomerId"
@@ -190,7 +213,8 @@
 
 <script>
 import { mapState, mapActions } from "vuex"
-import { _delete, patch, isPhone, get } from "@/utils"
+import { _delete, patch, isPhone, get, userPrefers12h } from "@/utils"
+import { timeTypes } from "@/constants"
 import CalendarAccounts from "@/components/settings/CalendarAccounts.vue"
 
 export default {
@@ -223,6 +247,7 @@ export default {
     // Profile settings
     firstName: "",
     lastName: "",
+    militaryTime: false,
   }),
 
   computed: {
@@ -273,6 +298,11 @@ export default {
       this.firstName = this.authUser.firstName
       this.lastName = this.authUser.lastName
     },
+    setMilitaryTime(enabled) {
+      localStorage["timeType"] = enabled
+        ? timeTypes.HOUR24
+        : timeTypes.HOUR12
+    },
     saveName() {
       patch(`/user/name`, {
         firstName: this.firstName,
@@ -292,6 +322,9 @@ export default {
   created() {
     this.firstName = this.authUser.firstName
     this.lastName = this.authUser.lastName
+    this.militaryTime = localStorage["timeType"]
+      ? localStorage["timeType"] === timeTypes.HOUR24
+      : !userPrefers12h()
   },
 }
 </script>

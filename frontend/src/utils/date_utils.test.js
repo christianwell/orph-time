@@ -1,17 +1,49 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import {
+  getStartEndDateString,
   getScheduleTimezoneOffset,
   getSpecificTimesDayStarts,
   getTimezoneOffsetForDate,
   getTimezoneReferenceDateForEvent,
 } from "./date_utils"
-import { eventTypes } from "../constants"
+import { eventTypes, timeTypes } from "../constants"
 import dayjs from "dayjs"
 import utcPlugin from "dayjs/plugin/utc"
 import timezonePlugin from "dayjs/plugin/timezone"
 
 dayjs.extend(utcPlugin)
 dayjs.extend(timezonePlugin)
+
+describe("time display preference", () => {
+  beforeEach(() => {
+    global.localStorage = {}
+  })
+
+  it("formats event times using military time when enabled", () => {
+    localStorage["timeType"] = timeTypes.HOUR24
+
+    const formatted = getStartEndDateString(
+      new Date(2026, 6, 18, 13, 30),
+      new Date(2026, 6, 18, 15, 0)
+    )
+
+    expect(formatted).toContain("13:30")
+    expect(formatted).toContain("15:00")
+    expect(formatted).not.toMatch(/AM|PM/)
+  })
+
+  it("formats event times using 12-hour time when disabled", () => {
+    localStorage["timeType"] = timeTypes.HOUR12
+
+    const formatted = getStartEndDateString(
+      new Date(2026, 6, 18, 13, 30),
+      new Date(2026, 6, 18, 15, 0)
+    )
+
+    expect(formatted).toContain("1:30 PM")
+    expect(formatted).toContain("3:00 PM")
+  })
+})
 
 describe("DST timezone regression", () => {
   beforeEach(() => {

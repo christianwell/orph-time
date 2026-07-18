@@ -26,17 +26,22 @@ export const getDateString = (date, utc = false) => {
 
 /** Returns a string in the format "Mon, 9/23, 10 AM - 12 PM PDT" given a start date and end date */
 export const getStartEndDateString = (startDate, endDate) => {
+  const hour12 = !localStorage["timeType"]
+    ? userPrefers12h()
+    : localStorage["timeType"] === timeTypes.HOUR12
   const startDay = startDate.toLocaleString("en-US", { weekday: "short" })
   const startMonth = startDate.toLocaleString("en-US", { month: "short" })
   const startDayOfMonth = startDate.toLocaleString("en-US", { day: "numeric" })
   const startTime = startDate.toLocaleString("en-US", {
     hour: "numeric",
     minute: "numeric",
+    hour12,
   })
   const endTime = endDate.toLocaleString("en-US", {
     hour: "numeric",
     minute: "numeric",
     timeZoneName: "short",
+    hour12,
   })
 
   return `${startDay}, ${startMonth} ${startDayOfMonth}, ${startTime} - ${endTime}`
