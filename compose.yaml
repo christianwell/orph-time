@@ -36,11 +36,20 @@ services:
     restart: unless-stopped
     ports:
       - "3002:3002"
-    env_file:
-      - ./server/.env
     environment:
       MONGODB_URI: mongodb://mongo:27017
       GIN_MODE: release
+
+      CLIENT_ID: ${CLIENT_ID}
+      CLIENT_SECRET: ${CLIENT_SECRET}
+
+      MICROSOFT_CLIENT_ID: ${MICROSOFT_CLIENT_ID:-}
+      MICROSOFT_CLIENT_SECRET: ${MICROSOFT_CLIENT_SECRET:-}
+
+      SESSION_SECRET: ${SESSION_SECRET}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+
+      VUE_APP_POSTHOG_API_KEY: ${VUE_APP_POSTHOG_API_KEY:-}
     volumes:
       - frontend_dist:/app/frontend/dist:ro
       - server_logs:/app/logs
@@ -61,3 +70,4 @@ volumes:
   mongo_data:
   frontend_dist:
   server_logs:
+
